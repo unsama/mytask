@@ -1,0 +1,40 @@
+aside.right-side
+    section.content-header
+        h1 Add Driver
+    section.content
+        .row
+            .col-md-6
+                add_general_info(v-bind:push_key="userPushRefKey")
+
+    section.content
+        .row
+            .col-xs-12
+                .box
+                    .box-header
+                        h3.box-title Drivers List
+                        .box-tools.text-right
+                    .box-body.table-responsive
+                        div.text-center(v-if='dataLoad')
+                            i.fa.fa-refresh.fa-spin.fa-3x.fa-fw
+                        h3.text-center(style='margin: 15px 0;' v-if='!dataLoad && data1.length === 0')
+                            | No Active Driver Found!
+                        template(v-if='!dataLoad && data1.length > 0')
+                            table_comp(v-bind:per_page="10")
+                                template(slot="thead")
+                                    tr
+                                        th S.No#
+                                        th Driver Name
+                                        th Driver Email
+                                        th Mobile#
+                                        th CNIC#
+                                        th Vehicle Type
+                                        th Created Time
+                                template(slot="tbody")
+                                    tr.open_row(v-for="(row, ind) in data1" v-bind:data-url="'/admin/drivers//'+row.key")
+                                        td {{ ind+1 }}
+                                        td {{ row.first_name }} {{ row.last_name }}
+                                        td {{ row.email }}
+                                        td {{ row.mob_no }}
+                                        td {{ row.cnic_no }}
+                                        td {{ row.vehicle }}
+                                        td {{ row.time }}
